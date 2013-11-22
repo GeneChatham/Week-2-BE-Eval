@@ -100,6 +100,15 @@ describe Tennis::Player do
         player.opponent.points = 3
 
         expect(player.score).to eq('Ad-in')
+
+        player.points = 2
+        player.opponent.points = 0
+        expect(player.score).to eq('thirty')
+
+        player.points = 55
+        player.opponent.points = 54
+        expect(player.score).to eq('Ad-in')
+
       end
     end
 

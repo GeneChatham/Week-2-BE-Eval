@@ -18,7 +18,7 @@ module Tennis
     # Returns the score of the winning player. 
     def wins_ball(winner)
       winner.record_won_ball!;
-      return winner.points
+#      return winner.points
     end
 
   end
@@ -41,7 +41,8 @@ module Tennis
     end
 
 
-    # Examines the @points of the player, and decides which tennis score 
+    # Examines the @points of the player, and if necessary, the 
+    #   player's opponent and decides which tennis score 
     #   phrase that refers to
     #
     # Returns the String score for the player.
@@ -50,8 +51,15 @@ module Tennis
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
-      return 'Game Over! Winner!' if @points == 4
+      
+      if (@points >= 4 && @points == (@opponent.points + 1) )
+        return "Ad-in"
+      else
+        return "Game Over! Winner!"
+      end
+    
     end
+
   end
 
 
