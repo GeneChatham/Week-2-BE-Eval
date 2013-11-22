@@ -93,5 +93,15 @@ describe Tennis::Player do
       end
     end
 
+    context 'when a player has enough points to win, but does not have two more
+      points than the opponent, and therefore is not yet the winner' do
+      it 'returns that the advantage is with the player' do
+        player.points = 4
+        player.opponent.points = 3
+
+        expect(player.score).to eq('Ad-in')
+      end
+    end
+
   end
 end
