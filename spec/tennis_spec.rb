@@ -93,7 +93,7 @@ describe Tennis::Player do
       end
     end
 
-    context 'when a player has enough points to win, but does not have two more
+    context 'Ad-in : when a player has enough points to win, but does not have two more
       points than the opponent, and therefore is not yet the winner' do
       it 'returns that the advantage is with the player' do
         player.points = 4
@@ -108,9 +108,27 @@ describe Tennis::Player do
         player.points = 55
         player.opponent.points = 54
         expect(player.score).to eq('Ad-in')
-
       end
     end
+
+    context 'Ad - out: when a player opponent has enough points to win, but does not have two more
+      points than the player, and therefore is not yet the loser' do
+      it 'returns that the advantage is with the opponent' do
+        player.points = 3
+        player.opponent.points = 4
+
+        expect(player.score).to eq('Ad-out')
+
+        player.points = 0
+        player.opponent.points = 2
+        expect(player.score).to eq('love')
+
+        player.points = 54
+        player.opponent.points = 55
+        expect(player.score).to eq('Ad-out')
+      end
+    end
+
 
   end
 end

@@ -47,16 +47,21 @@ module Tennis
     #
     # Returns the String score for the player.
     def score
+
+      if (@points >= 4 && @points == (@opponent.points + 1) )
+        return "Ad-in"
+      elsif (@opponent.points >= 4 && @points == (@opponent.points - 1))
+        return "Ad-out"
+      elsif (@points >= 4)
+        return "Game Over! Winner!"
+      end
+
       return 'love' if @points == 0
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
       
-      if (@points >= 4 && @points == (@opponent.points + 1) )
-        return "Ad-in"
-      else
-        return "Game Over! Winner!"
-      end
+
     
     end
 
