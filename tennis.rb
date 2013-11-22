@@ -41,14 +41,16 @@ module Tennis
     end
 
 
-    # Sets the 
-
+    # Examines the @points of the player, and decides which tennis score 
+    #   phrase that refers to
+    #
     # Returns the String score for the player.
     def score
       return 'love' if @points == 0
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
+      return 'Game Over! Winner!' if @points == 4
     end
   end
 

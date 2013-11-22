@@ -84,6 +84,14 @@ describe Tennis::Player do
         expect(player.score).to eq('forty')
       end
     end
-    
+
+    context 'when points is 4 and the other opponent has less than 3 points' do
+      it 'returns that the game has been won' do
+        player.points = 4
+
+        expect(player.score).to eq('Game Over! Winner!')
+      end
+    end
+
   end
 end
