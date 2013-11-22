@@ -1,4 +1,5 @@
 module Tennis
+  
   class Game
     attr_accessor :player1, :player2
 
@@ -16,9 +17,10 @@ module Tennis
     #
     # Returns the score of the winning player. 
     def wins_ball(winner)
-      winner.points += 1;
-
+      winner.record_won_ball!;
+      return winner.points
     end
+
   end
 
 
@@ -44,6 +46,12 @@ module Tennis
     # Returns the String score for the player.
     def score
       return 'love' if @points == 0
+      return 'fifteen' if @points == 1
+      return 'thirty' if @points == 2
+      return 'forty' if @points == 3
     end
   end
+
+
+
 end
