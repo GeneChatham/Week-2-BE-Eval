@@ -30,6 +30,39 @@ describe Tennis::Game do
       expect(game.player2.points).to eq(2)
     end
   end
+
+  describe '#report_scores' do
+    it 'returns both players scores, or the ad-in, ad-out, deuce, or won/loss status' do
+      game.player1.points = 0
+      game.player2.points = 0
+      expect(game.report_scores).to eq("love, love")
+
+      game.player1.points = 1
+      game.player2.points = 0
+      expect(game.report_scores).to eq("fifteen, love")
+
+      game.player1.points = 3
+      game.player2.points = 3
+      expect(game.report_scores).to eq("deuce")
+
+      game.player1.points = 4
+      game.player2.points = 3
+      expect(game.report_scores).to eq("ad in")
+
+      game.player1.points = 7
+      game.player2.points = 8
+      expect(game.report_scores).to eq("ad out")
+
+      game.player1.points = 4
+      game.player2.points = 2
+      expect(game.report_scores).to eq("Player 1 wins!")
+
+
+    end
+
+  end
+
+
 end
 
 describe Tennis::Player do
