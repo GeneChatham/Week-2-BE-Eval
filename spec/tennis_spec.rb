@@ -111,7 +111,7 @@ describe Tennis::Player do
       end
     end
 
-    context 'Ad - out: when a player opponent has enough points to win, but does not have two more
+    context 'Ad-out: when a player opponent has enough points to win, but does not have two more
       points than the player, and therefore is not yet the loser' do
       it 'returns that the advantage is with the opponent' do
         player.points = 3
@@ -126,6 +126,24 @@ describe Tennis::Player do
         player.points = 54
         player.opponent.points = 55
         expect(player.score).to eq('Ad-out')
+      end
+    end
+
+    context 'Deuce: when a player and opponent both have the same number of
+      points, and that number is greater than or equal to 3 (forty)' do
+      it 'returns the the score is at deuce' do
+        player.points = 2
+        player.opponent.points = 2
+
+        expect(player.score).to eq('thirty')
+
+        player.points = 3
+        player.opponent.points = 3
+        expect(player.score).to eq('deuce!')
+
+        player.points = 54
+        player.opponent.points = 54
+        expect(player.score).to eq('deuce!')
       end
     end
 

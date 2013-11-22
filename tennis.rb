@@ -52,6 +52,8 @@ module Tennis
         return "Ad-in"
       elsif (@opponent.points >= 4 && @points == (@opponent.points - 1))
         return "Ad-out"
+      elsif (@points >= 3 && @points == @opponent.points)
+        return "deuce!"
       elsif (@points >= 4)
         return "Game Over! Winner!"
       end
@@ -60,12 +62,11 @@ module Tennis
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
-      
-
-    
+ 
     end
 
   end
+
 
 
 
