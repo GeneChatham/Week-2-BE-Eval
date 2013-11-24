@@ -1,11 +1,15 @@
 module Tennis
+
   
   class Game
     attr_accessor :player1, :player2
 
-    def initialize
-      @player1 = Player.new
-      @player2 = Player.new
+    def initialize( player1= Player.new(serving:true), player2= Player.new(serving:false) )
+      @player1 = player1
+      @player2 = player2
+ 
+      @player1.serving = true
+      @player2.serving = false
 
       @player1.opponent = @player2
       @player2.opponent = @player1
@@ -17,19 +21,43 @@ module Tennis
     #
     # Returns the score of the winning player. 
     def wins_ball(winner)
-      winner.record_won_ball!;
-#      return winner.points
+      winner.record_won_ball!
     end
+
+    # Figures out the proper tennis term for the players' scores. 
+    #
+    # Returns a String describing the game's score. 
+    def report_scores
+      if player1.points >= 3 && player1.points == player2.points
+        return "The score is deuce!"
+      elsif  player1.points >= 4 || player2.points >= 4
+        
+        if player1.points >= 4 && player1.points == (player2.points + 1) 
+          return "The score is ad in."
+        elsif player2.points >= 4 && player1.points == (player2.points - 1)
+          return "The score is ad out."
+        elsif player1.points >= (player2.points + 2)
+          return "Game Over! The server wins!"
+        else
+          return "Game Over! The receiver wins!"
+        end
+      
+      else
+        return "The score is #{player1.score}, #{player2.score}."
+      end
+    end
+
 
   end
 
 
 
   class Player
-    attr_accessor :points, :opponent
+    attr_accessor :points, :opponent, :serving
 
-    def initialize
+    def initialize(serving:false)
       @points = 0
+      @serving = serving
       #@opponent = nil
     end
 
@@ -62,12 +90,10 @@ module Tennis
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
+      return 'more than forty' if points >= 4
  
     end
 
   end
-
-
-
 
 end

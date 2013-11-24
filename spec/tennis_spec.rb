@@ -35,40 +35,42 @@ describe Tennis::Game do
     it 'returns both players scores, or the ad-in, ad-out, deuce, or won/loss status' do
       game.player1.points = 0
       game.player2.points = 0
-      expect(game.report_scores).to eq("love, love")
+      expect(game.report_scores).to eq("The score is love, love.")
 
       game.player1.points = 1
       game.player2.points = 0
-      expect(game.report_scores).to eq("fifteen, love")
+      expect(game.report_scores).to eq("The score is fifteen, love.")
 
       game.player1.points = 3
       game.player2.points = 3
-      expect(game.report_scores).to eq("deuce")
+      expect(game.report_scores).to eq("The score is deuce!")
 
       game.player1.points = 4
       game.player2.points = 3
-      expect(game.report_scores).to eq("ad in")
+      expect(game.report_scores).to eq("The score is ad in.")
 
       game.player1.points = 7
       game.player2.points = 8
-      expect(game.report_scores).to eq("ad out")
+      expect(game.report_scores).to eq("The score is ad out.")
 
       game.player1.points = 4
       game.player2.points = 2
-      expect(game.report_scores).to eq("Player 1 wins!")
+      expect(game.report_scores).to eq("Game Over! The server wins!")
 
-
+      game.player1.points = 2
+      game.player2.points = 4
+      expect(game.report_scores).to eq("Game Over! The receiver wins!")
     end
-
   end
-
 
 end
 
+
+
 describe Tennis::Player do
   let(:player) do
-    player = Tennis::Player.new
-    player.opponent = Tennis::Player.new
+    player = Tennis::Player.new(serving:true)
+    player.opponent = Tennis::Player.new(serving:false)
 
     return player
   end
@@ -88,6 +90,7 @@ describe Tennis::Player do
   end
 
   describe '#score' do
+
     context 'when points is 0' do
       it 'returns love' do
         expect(player.score).to eq('love')
@@ -126,8 +129,7 @@ describe Tennis::Player do
       end
     end
 
-    context 'Ad-in : when a player has enough points to win, but does not have two more
-      points than the opponent, and therefore is not yet the winner' do
+    context 'Ad-in : when a player has enough points to win, but does not have two more points than the opponent, and therefore is not yet the winner' do
       it 'returns that the advantage is with the player' do
         player.points = 4
         player.opponent.points = 3
@@ -144,8 +146,7 @@ describe Tennis::Player do
       end
     end
 
-    context 'Ad-out: when a player opponent has enough points to win, but does not have two more
-      points than the player, and therefore is not yet the loser' do
+    context 'Ad-out: when a player opponent has enough points to win, but does not have two more points than the player, and therefore is not yet the loser' do
       it 'returns that the advantage is with the opponent' do
         player.points = 3
         player.opponent.points = 4
@@ -162,8 +163,7 @@ describe Tennis::Player do
       end
     end
 
-    context 'Deuce: when a player and opponent both have the same number of
-      points, and that number is greater than or equal to 3 (forty)' do
+    context 'Deuce: when a player and opponent both have the same number of points, and that number is greater than or equal to 3 (forty)' do
       it 'returns the the score is at deuce' do
         player.points = 2
         player.opponent.points = 2
@@ -180,6 +180,6 @@ describe Tennis::Player do
       end
     end
 
-
   end
+
 end
